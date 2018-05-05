@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+       <!-- for auto-detecting the annotations @RequestMapping -->
+       <!-- enable spring mvc -->
+       <mvc:annotation-driven>
+       <mvc:argument-resolvers>
+         <bean class="org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver">
+         </bean>
+       </mvc:argument-resolvers>
+       </mvc:annotation-driven>
+      	<!-- @Componentscan -->
+       <context:component-scan base-package="com.niit.*"></context:component-scan>
+       <!-- to convert logical view name to actual view name -->
+       <!--  InternalResourceViewResolver -->
+       <!-- logical view name is 'hello' -->
+       <!--  prefix is /WEB-INF/views/ -->
+       <!-- suffix is .jsp -->
+       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+       <property name="prefix" value="/WEB-INF/views/"></property>
+       <property name="suffix" value=".jsp"></property>
+       </bean>
+       <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+       <property name="maxUploadSize" value="10240000"></property>
+       </bean>
+       <!-- http://localhost:8080/project1frontend/resources/images/niit.jpg 
+       <img src='<c:url value="/resources/images/niit.jpg">'>
+                   /WEB-INF/resources/images/niit.jpg
+       -->
+       <mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"></mvc:resources>
+</beans>
